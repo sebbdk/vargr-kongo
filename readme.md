@@ -1,5 +1,5 @@
 # Kongo
-Koa and mongo CRUD Restfull boostrapping library.
+Koa and mongo RESTful API boostrapping library
 
 **THIS DOES NOT WORK YET**
 
