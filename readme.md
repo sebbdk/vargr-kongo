@@ -10,4 +10,4 @@ Returns a Koa instance configured to serve a RESTful API with the configured Mon
 
 Comes with Cors and  gzip compression by default.
 
-Simple add your custom Koa configuration to the returned object and call app.listen(somenumber).
+Simple add your custom Koa configuration to the returned object and the listen(myportnumber) method on it to make it go.
