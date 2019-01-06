@@ -1,17 +1,14 @@
-/*
-* @Author: sebb
-* @Date:   2017-03-16 22:25:34
-* @Last Modified by:   Kasper Sebb' brandt
-* @Last Modified time: 2018-10-19 20:19:34
-*/
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
-
-module.exports = function(ModelName, config = {}) {
+module.exports = function(CollectionName, config = {}) {
   return async function (ctx) {
-    const Model = ctx.orm()[ModelName];
     const query = ctx.request.query;
+    const items = await ctx.db
+      .collection(CollectionName)
+      .find({})
+      .toArray();
 
+    ctx.body = { items };
+
+    return;
     let order = [
       query.orderBy || undefined,
       query.order || 'ASC'

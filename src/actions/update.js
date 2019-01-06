@@ -1,10 +1,3 @@
-/*
-* @Author: sebb
-* @Date:   2017-03-16 22:25:34
-* @Last Modified by:   kasper
-* @Last Modified time: 2018-01-03 20:50:53
-*/
-
 module.exports = function(ModelName) {
   return async function (ctx) {
     const Model = ctx.orm()[ModelName];

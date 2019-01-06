@@ -4,7 +4,8 @@
   "description": "A Koa and MongoDB CRUD bootstrapping",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:live": "nodemon test.js"
   },
   "keywords": [
     "koa",
@@ -21,6 +22,7 @@
     "koa-mongo": "^1.6.0",
     "koa-router": "^7.4.0",
     "koa2-cors": "^2.0.6",
-    "mongodb": "^3.1.10"
+    "mongodb": "^3.1.10",
+    "nodemon": "^1.18.9"
   }
 }

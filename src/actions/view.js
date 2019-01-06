@@ -1,20 +1,14 @@
-/*
-* @Author: sebb
-* @Date:   2017-03-16 22:25:34
-* @Last Modified by:   kasper
-* @Last Modified time: 2017-11-24 20:15:13
-*/
+const  { ObjectID } = require('mongodb');
 
-module.exports = function(ModelName) {
+module.exports = function(CollectionName) {
   return async function (ctx) {
-    const Model = ctx.orm()[ModelName];
-    const results = await Model.findOne({
-      where: {
-        id: ctx.params.id
-      },
-      include: [{ all: true, include: [{all:true}] }]
-    });
+    const item = await ctx.db
+      .collection(CollectionName)
+      .findOne({_id: new ObjectID(ctx.params.id)})
 
-    ctx.body = { results };
+    if (item === null) {
+      ctx.response.status = 404;
+    }
+    ctx.body = { ...item };
   }
 };

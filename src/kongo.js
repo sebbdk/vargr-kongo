@@ -17,9 +17,10 @@ const actions = require('./actions');
  * @param Koa Router router
  */
 module.exports = function init(config, server = new koa(), router = new Router()) {
-    config.actions.forEach((item) => {
+    // Add request handlers
+    config.collections && config.collections.forEach((item) => {
         if (typeof(item) === 'string') {
-            actions.addAllActions(router, item);
+            actions.all(router, item);
         } else {
             Object.keys(item.actions).forEach(action => {
                 actions[action](router, item, item);
@@ -29,7 +30,7 @@ module.exports = function init(config, server = new koa(), router = new Router()
 
     server
         .use(MongoMiddlware(config.mongo))
-        .use(cors(config.cors)
+        .use(cors(config.cors))
         .use(compress({
             filter: function (content_type) {
                 return /json/i.test(content_type)

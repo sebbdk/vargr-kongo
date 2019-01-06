@@ -1,21 +1,17 @@
-/*
-* @Author: sebb
-* @Date:   2017-03-16 22:25:34
-* @Last Modified by:   Kasper Sebb' brandt
-* @Last Modified time: 2018-10-20 19:29:04
-*/
+const path = require('path');
 
-module.exports = function(ModelName) {
+module.exports = function(CollectionName, config = {}) {
   return async function (ctx) {
-    const Model = ctx.orm()[ModelName];
+    const result = await ctx.db
+      .collection(CollectionName)
+      .insertOne(ctx.request.fields);
 
-    const results = await Model.create(ctx.request.fields, {
-      include: [{ all: true }]
-    }).catch(function (err) {
-      console.log(err);
-      throw new Error(err);
-    });
+    const item = await ctx.db
+      .collection(CollectionName)
+      .findOne({_id: result.insertedId})
 
-    ctx.body = results;
+    // ctx.set('Status-Code', '201');
+    ctx.response.status = 201;
+    ctx.body = { ...item };
   }
 };

@@ -1,14 +1,8 @@
-/*
-* @Author: kasper
-* @Date:   2017-03-19 01:44:37
-* @Last Modified by:   kasper
-* @Last Modified time: 2018-01-03 20:18:49
-*/
 const listAction = require('./list');
-const viewAction = require('./view');
-const deleteAction = require('./delete');
 const addAction = require('./add');
+const viewAction = require('./view');
 const updateAction = require('./update');
+const deleteAction = require('./delete');
 
 function underScoreName(string) {
   return string
@@ -16,7 +10,7 @@ function underScoreName(string) {
     .replace(/^_/, "");
 }
 
-module.exports = function(router, modelName, options) {
+module.exports = function(router, collectionName, options) {
   options = {
     path: '/',
     index: {},
@@ -26,11 +20,11 @@ module.exports = function(router, modelName, options) {
     delete: {},
     ...options
   }
-  const lwrCseName = underScoreName(modelName);
+  const lwrCseName = underScoreName(collectionName);
 
-  router.get(`${options.path}${lwrCseName}`, listAction(modelName, options.index));
-  router.post(`${options.path}${lwrCseName}`, addAction(modelName, options.add));
-  router.get(`${options.path}${lwrCseName}/:id`, viewAction(modelName, options.view));
-  router.put(`${options.path}${lwrCseName}/:id`, updateAction(modelName, options.update));
-  router.delete(`${options.path}${lwrCseName}/:id`, deleteAction(modelName, options.delete));
+  router.get(`${options.path}${lwrCseName}`, listAction(collectionName, options.index));
+  router.post(`${options.path}${lwrCseName}`, addAction(collectionName, options.add));
+  router.get(`${options.path}${lwrCseName}/:id`, viewAction(collectionName, options.view));
+  //router.put(`${options.path}${lwrCseName}/:id`, updateAction(collectionName, options.update));
+  router.delete(`${options.path}${lwrCseName}/:id`, deleteAction(collectionName, options.delete));
 }
