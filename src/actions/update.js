@@ -1,22 +1,18 @@
-module.exports = function(ModelName) {
+const  { ObjectID } = require('mongodb');
+
+module.exports = function(CollectionName) {
   return async function (ctx) {
-    const Model = ctx.orm()[ModelName];
-    let results = await Model.update(ctx.request.fields,{
-      where: {
-        id: ctx.params.id
-      }
-    });
+    const item = await ctx.db
+      .collection(CollectionName)
+      .findOneAndUpdate(
+        { _id: new ObjectID(ctx.params.id) },
+        { $set: ctx.request.fields },
+        { returnOriginal: false }
+      );
 
-    ctx.body = { };
-
-    if(results[0] !== 0) {
-      const result = await Model.findOne({
-        where: {
-          id: ctx.params.id
-        }
-      });
-
-      ctx.body = result;
+    if (item === null) {
+      ctx.response.status = 404;
     }
+    ctx.body = { ...item };
   }
 };

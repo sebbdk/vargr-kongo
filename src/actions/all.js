@@ -25,6 +25,6 @@ module.exports = function(router, collectionName, options) {
   router.get(`${options.path}${lwrCseName}`, listAction(collectionName, options.index));
   router.post(`${options.path}${lwrCseName}`, addAction(collectionName, options.add));
   router.get(`${options.path}${lwrCseName}/:id`, viewAction(collectionName, options.view));
-  //router.put(`${options.path}${lwrCseName}/:id`, updateAction(collectionName, options.update));
+  router.put(`${options.path}${lwrCseName}/:id`, updateAction(collectionName, options.update));
   router.delete(`${options.path}${lwrCseName}/:id`, deleteAction(collectionName, options.delete));
 }

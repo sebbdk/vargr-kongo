@@ -6,6 +6,7 @@ module.exports = function(CollectionName) {
       .collection(CollectionName)
       .deleteOne({_id: new ObjectID(ctx.params.id)})
 
+    ctx.response.status = 204;
     ctx.body = {
       success: result.value !== null
     };
