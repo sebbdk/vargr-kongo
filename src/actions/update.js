@@ -10,9 +10,9 @@ module.exports = function(CollectionName) {
         { returnOriginal: false }
       );
 
-    if (item === null) {
+    if (item.value === null) {
       ctx.response.status = 404;
     }
-    ctx.body = { ...item };
+    ctx.body = { ...item.value };
   }
 };

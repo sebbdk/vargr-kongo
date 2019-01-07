@@ -1,0 +1,291 @@
+{
+	"info": {
+		"_postman_id": "d90e08fc-0f7c-46ce-bb88-1f0d77c53e83",
+		"name": "vargr-kongo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "List",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64357d01-8b66-42cb-8c84-630af410eaee",
+						"exec": [
+							"pm.test(\"is valid 200 json response\", function () {",
+							"     // assert that the status code is 200",
+							"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+							"});",
+							"",
+							"pm.test(\"has items array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(Array.isArray(jsonData.items)).to.eql(true);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4444/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "210b8a18-6ae9-431f-8eb9-2bfab56c3940",
+						"exec": [
+							"",
+							"pm.test(\"Your test name\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(typeof(jsonData._id)).to.eql('string');",
+							"    pm.environment.set(\"newItem\", jsonData._id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"gallery_id\": \"\",\n\"media_meta_id\": \"\",\n\"name\": \"Superheroine Art 25\",\n\"tags\": \"\",\n\"asset_file\": \"https://x.imagefapusercontent.com/u/wmbs2011/7855607/2036989109/7.gif\",\n\"asset_preview\": \"\",\n\"origin\": \"https://www.imagefap.com/photo/2036989109/?pgid=&gid=7855607&page=0&idx=6\",\n\"sort\": 0,\n\"is_favorite\": 0,\n\"is_seen\": false,\n\"deleted\": false,\n\"has_error\": false,\n\"created\": \"2019-01-05T13:52:40.000Z\",\n\"MediaMeta\": null,\n\"Pick\": null\n}"
+				},
+				"url": {
+					"raw": "http://localhost:4444/test/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"test",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4fcc2a34-676f-44b5-90fc-a30e3fa753ed",
+						"exec": [
+							"pm.test(\"is valid 200 json response\", function () {",
+							"     // assert that the status code is 200",
+							"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+							"});",
+							"",
+							"pm.test(\"is favorite after update\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData._id).to.eql(pm.environment.get(\"newItem\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4444/test/{{newItem}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"test",
+						"{{newItem}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b70d1a51-d79d-4235-8e8e-51679dc7c921",
+						"exec": [
+							"pm.test(\"is valid 200 json response\", function () {",
+							"     // assert that the status code is 200",
+							"     pm.response.to.be.ok; // info, success, redirection, clientError,  serverError, are other variants",
+							"     // assert that the response has a valid JSON body",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json; // this assertion also checks if a body  exists, so the above check is not needed",
+							"});",
+							"",
+							"pm.test(\"is favorite after update\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.is_favorite).to.eql(true);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"is_favorite\": true}"
+				},
+				"url": {
+					"raw": "http://localhost:4444/test/{{newItem}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"test",
+						"{{newItem}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete item",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c6090ae7-47af-4a05-872c-c6262f4c8649",
+						"exec": [
+							"pm.test(\"is valid 204 no content\", function () {",
+							"     pm.response.to.have.status(204);; // info, success, redirection, clientError,  serverError, are other variants",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4444/test/{{newItem}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"test",
+						"{{newItem}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get item 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab34434c-bd33-4f57-a8b1-d17abc5b9465",
+						"exec": [
+							"pm.test(\"Return a 404 item not found, on previously deleted item\", function () {",
+							"     pm.response.to.have.status(404);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Returns empty object\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.eql({});",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4444/test/{{newItem}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"test",
+						"{{newItem}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

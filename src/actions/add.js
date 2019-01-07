@@ -10,7 +10,6 @@ module.exports = function(CollectionName, config = {}) {
       .collection(CollectionName)
       .findOne({_id: result.insertedId})
 
-    // ctx.set('Status-Code', '201');
     ctx.response.status = 201;
     ctx.body = { ...item };
   }
