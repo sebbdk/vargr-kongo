@@ -10,7 +10,6 @@ I am still porting the actions from my old sequalize/sql setup.
 Will finish this up soon, as i need it for other projects.
 
 # Todo
-- Add filter and limit to list action
 - Douple check everything matches RESTFull conventions
 - Add optional model validation
 - Figure out a lightweight auth layer that can be put on top
@@ -25,3 +24,4 @@ Will finish this up soon, as i need it for other projects.
 # Potential features
 - Save multiple items per request
 - Nested saving, map certain xyz child objects to another collection
+- Consider testing with jest like this instead: https://www.valentinog.com/blog/testing-api-koa-jest/

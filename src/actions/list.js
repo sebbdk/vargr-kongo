@@ -1,54 +1,28 @@
 module.exports = function(CollectionName, config = {}) {
   return async function (ctx) {
     const query = ctx.request.query;
-    const items = await ctx.db
+    const filter = config.where || (query.where && JSON.parse(query.where)) || {};
+
+    let items = await ctx.db
       .collection(CollectionName)
-      .find({})
-      .toArray();
+      .find(filter);
 
-    ctx.body = { items };
-
-    return;
-    let order = [
-      query.orderBy || undefined,
-      query.order || 'ASC'
-    ];
-
-    let options = {
-      ...config.query,
-      where: config.query && config.query.where || [],
-      limit: parseInt(query.limit, 10) || 20,
-      order: [['created', 'DESC']],
-      offset: parseInt(query.offset, 10) || 0,
-    };
-
-    if(order[0] !== undefined) {
-      options.order = [order];
+    if(query.order && query.orderBy) {
+      items = items.sort({
+        [ctx.params.orderBy]: ctx.params.order
+      });
     }
 
-    const where = Object.getOwnPropertyNames(Model.attributes).reduce((conditions, field) => {
-      if(query[field] !== undefined) {
-        if(!conditions) {
-          conditions = [];
-        }
+    if(query.offset) {
+      items = items.skip(parseInt(query.offset, 10) || 0);
+    }
 
-        // The params can be sendt like name=%\dexter%, just make sure to escape like %\x, to prevent decoding errors.
-        //conditions[Op.or][field] = query[field];
-        const con = {
-          [field]: { $like: query[field] }
-        };
-        conditions.push(con);
-      }
+    if(query.limit) {
+      items = items.limit(parseInt(query.limit, 10) || 20);
+    }
 
-      return conditions;
-    }, []);
+    items = await items.toArray();
 
-    options.where = [
-      ...options.where,
-      ...where
-    ];
-
-    const results = await Model.findAll(options);
-    ctx.body = { results };
+    ctx.body = { items };
   }
 };

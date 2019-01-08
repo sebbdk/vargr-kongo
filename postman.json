@@ -54,6 +54,104 @@
 			"response": []
 		},
 		{
+			"name": "List where",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64357d01-8b66-42cb-8c84-630af410eaee",
+						"exec": [
+							"pm.test(\"has only is_favorite items\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.items.forEach(item => {",
+							"        pm.expect(item.is_favorite).to.eql(1); ",
+							"    });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4444/test?where={\"is_favorite\":1}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"test"
+					],
+					"query": [
+						{
+							"key": "where",
+							"value": "{\"is_favorite\":1}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List offset and limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64357d01-8b66-42cb-8c84-630af410eaee",
+						"exec": [
+							"pm.test(\"has only 2 items\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.items.length).to.eql(2);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:4444/test?limit=2&offset=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"test"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "2"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Add item",
 			"event": [
 				{
