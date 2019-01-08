@@ -11,6 +11,10 @@ Singular items are referenced by _id like `http://localhost:3000/mycollection/{s
 
 And then common RESTFull methods apply to do CRUD
 
+## Todo
+- Prepare and publish to NPM
+- Add some fancy build badges :) https://github.com/dwyl/repo-badges
+
 ## Feature summary
 - RESTFull CRUD to the configured db/collections
 - Filter/Search collections based on query or body content
@@ -18,13 +22,13 @@ And then common RESTFull methods apply to do CRUD
 - Cors integration with koa-cors
 - gzip with koa-gzip
 
-## Future Features
+## Future Feature / changes
 - Configure custom action paths
 - Save multiple documents per request
 - Optionally configured document validation, to ensure type safety and ensure document consistency
 - Optionally configured auth and data ownership rules
 - Optionally configured nested saving, map certain xyz child objects to another collection
-- Programatically testing using Jest like this instead: https://www.valentinog.com/blog/testing-api-koa-jest/
+- Implement programatic testing using Jest like this instead: https://www.valentinog.com/blog/testing-api-koa-jest/
 
 ## How to use
 To get going this is all you need:
