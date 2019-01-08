@@ -34,7 +34,7 @@ app.listen(4444);
 ```
 
 ## API
-**function function init(config, server = new koa(), router = new Router())**
+**function kongo(Object config, Koa server = new koa(), KoaRouter router = new Router())**
 ```
 kongo(
     Object config = {
