@@ -19,7 +19,7 @@ Just another API library really.
 - Programatically testing using Jest like this instead: https://www.valentinog.com/blog/testing-api-koa-jest/
 
 ## How to use
-To get going this is al you need:
+To get going this is all you need basically:
 ```
 const app = kongo({
     host: 'localhost',
