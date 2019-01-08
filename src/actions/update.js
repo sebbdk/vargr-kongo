@@ -6,13 +6,14 @@ module.exports = function(CollectionName) {
       .collection(CollectionName)
       .findOneAndUpdate(
         { _id: new ObjectID(ctx.params.id) },
-        { $set: ctx.request.fields },
+        { $set: ctx.request.body },
         { returnOriginal: false }
       );
 
     if (item.value === null) {
       ctx.response.status = 404;
     }
+
     ctx.body = { ...item.value };
   }
 };

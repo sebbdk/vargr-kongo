@@ -1,9 +1,8 @@
 const koa = require('koa');
 const Router = require('koa-router');
-const convert = require('koa-convert');
 const compress = require('koa-compress');
 const MongoMiddlware = require('koa-mongo');
-const bodyParser = require('koa-better-body');
+const bodyParser = require('koa-bodyparser');
 const cors = require('koa2-cors');
 
 const actions = require('./actions');
@@ -33,7 +32,7 @@ module.exports = function init(config) {
             threshold: 2048,
             flush: require('zlib').Z_SYNC_FLUSH
         }))
-        .use(convert(bodyParser()))
+        .use(bodyParser())
         .use(config.router.routes())
         .use(config.router.allowedMethods());
 

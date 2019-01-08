@@ -1,10 +1,8 @@
-const path = require('path');
-
-module.exports = function(CollectionName, config = {}) {
+module.exports = function(CollectionName) {
   return async function (ctx) {
     const result = await ctx.db
       .collection(CollectionName)
-      .insertOne(ctx.request.fields);
+      .insertOne(ctx.request.body);
 
     const item = await ctx.db
       .collection(CollectionName)

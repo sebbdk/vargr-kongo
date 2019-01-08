@@ -102,6 +102,58 @@
 			"response": []
 		},
 		{
+			"name": "List where by payload",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "64357d01-8b66-42cb-8c84-630af410eaee",
+						"exec": [
+							"pm.test(\"has only is_favorite items\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    jsonData.items.forEach(item => {",
+							"        pm.expect(item.is_favorite).to.eql(1); ",
+							"    });",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"where\":{\"is_favorite\":1}}"
+				},
+				"url": {
+					"raw": "http://localhost:4444/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4444",
+					"path": [
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "List offset and limit",
 			"event": [
 				{
@@ -264,7 +316,7 @@
 							"",
 							"pm.test(\"is favorite after update\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.is_favorite).to.eql(true);",
+							"    pm.expect(jsonData.is_favorite).to.eql(1);",
 							"});",
 							"",
 							""
@@ -285,10 +337,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"is_favorite\": true}"
+					"raw": "{\"is_favorite\": 1}"
 				},
 				"url": {
-					"raw": "http://localhost:4444/test/{{newItem}}",
+					"raw": "http://localhost:4444/test/5c310771b0ffd2c0bd9af48e",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -296,7 +348,7 @@
 					"port": "4444",
 					"path": [
 						"test",
-						"{{newItem}}"
+						"5c310771b0ffd2c0bd9af48e"
 					]
 				}
 			},
