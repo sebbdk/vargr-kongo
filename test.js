@@ -1,14 +1,22 @@
-const kongo = require('./src/kongo');
 const fs = require('fs');
 const newman = require('newman'); // require newman in your project
+const Router = require('koa-router');
 
+const kongo = require('./src/kongo');
+const myCustomRouter = new Router();
+const listAction = require('./src/actions/list');
+
+myCustomRouter.get(`/someurl`, listAction('customCollection'));
 const app = kongo({
-    host: 'localhost',
-    port: 27017,
-    db: 'test',
+    dbConfig: {
+        host: 'localhost',
+        port: 27017,
+        db: 'test',
+    },
     collections: [
-        'test'
-    ]
+        'test',
+    ],
+    router: myCustomRouter
 });
 
 app.listen(4444);

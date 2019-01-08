@@ -16,20 +16,17 @@ const actions = require('./actions');
  * @param Koa app
  * @param Koa Router router
  */
-module.exports = function init(config, server = new koa(), router = new Router()) {
+module.exports = function init(config) {
+    if (!config.server) config.server = new koa();
+    if (!config.router) config.router = new Router();
+
     // Add request handlers
     config.collections && config.collections.forEach((item) => {
-        if (typeof(item) === 'string') {
-            actions.all(router, item);
-        } else {
-            Object.keys(item.actions).forEach(action => {
-                actions[action](router, item, item);
-            });
-        }
+        actions.all(config.router, item);
     });
 
-    server
-        .use(MongoMiddlware(config.mongo))
+    config.server
+        .use(MongoMiddlware(config.dbConfig))
         .use(cors(config.cors))
         .use(compress({
             filter: function (content_type) {
@@ -39,8 +36,8 @@ module.exports = function init(config, server = new koa(), router = new Router()
             flush: require('zlib').Z_SYNC_FLUSH
         }))
         .use(convert(bodyParser()))
-        .use(router.routes())
-        .use(router.allowedMethods());
+        .use(config.router.routes())
+        .use(config.router.allowedMethods());
 
-    return server;
+    return config.server;
 }
