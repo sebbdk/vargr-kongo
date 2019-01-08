@@ -11,7 +11,7 @@ Singular items are referenced by _id like `http://localhost:3000/mycollection/{s
 
 And then common RESTFull methods apply to do CRUD
 
-## And outtake of features
+## Feature summary
 - RESTFull CRUD to the configured db/collections
 - Filter/Search collections based on query or body content
 - Modify CRUD API urls
