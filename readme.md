@@ -4,10 +4,10 @@ Koa and MongoDB RESTful API boostrapping library
 Returns a configured koa instance with a Restfull CRUD API configured.
 Just another API library really.
 
-The specified collection names are inflected upon the API fx ``http://localhost:3000/mycollection
+The specified collection names are inflected upon the API fx `http://localhost:3000/mycollection`
 reference the ´mycollection´ mongodb collection
 
-Singular items are referenced by _id like ´http://localhost:3000/mycollection/{someID}´
+Singular items are referenced by _id like http://localhost:3000/mycollection/{someID}`
 
 And then common RESTFull methods apply to do CRUD
 
