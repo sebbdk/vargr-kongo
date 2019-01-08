@@ -28,6 +28,7 @@ And then common RESTFull methods apply to do CRUD
 
 ## How to use
 To get going this is all you need:
+
 ```
 const app = kongo({
     dbConfig: {
@@ -46,6 +47,9 @@ app.listen(4444);
 This will serve the test collection on http://localhost:4444/test
 
 ## Adding custom routing or only a subset of actions
+Since this bootstrap exposes the MongoDB driver to Koa, you can easely add custom actions like below.
+In this case i re-used the listAction from vargr-kongo, but this you could also insert your own logic.
+
 ```
 const Router = require('koa-router');
 const kongo = require('./src/kongo');
@@ -69,7 +73,7 @@ app.listen(4444);
 ```
 
 ## API
-function kongo(Object **config**, Koa **server** = new koa(), KoaRouter **router** = new Router())
+function kongo(Object **config**)
 ```
 kongo(
     Object config = {

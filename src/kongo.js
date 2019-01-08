@@ -13,8 +13,6 @@ const actions = require('./actions');
  * and initialize the MongoDB connection
  *
  * @param Object config
- * @param Koa app
- * @param Koa Router router
  */
 module.exports = function init(config) {
     if (!config.server) config.server = new koa();
